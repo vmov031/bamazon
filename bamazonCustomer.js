@@ -29,7 +29,7 @@ function firstPurchase() {
 		type: "list",
 		choices: function() {
 			var choiceArray = [];
-			for (var i = 0; i < ressults.length; i++) {
+			for (var i = 0; i < results.length; i++) {
 				choiceArray.push(results[i].item_id.toString());
 			}
 			return choiceArray;
@@ -38,8 +38,8 @@ function firstPurchase() {
 	}
 	{
 		name: "quantity",
+		type: "input",
 		message: "How many of this item would you like to buy?",
-		choices: [],
 		validate: function(value) {
 			if (isNaN(value) === false) {
 				return true;
@@ -50,6 +50,13 @@ function firstPurchase() {
 
 	])
 	.then(function(answer) {
+
+		var chosenItem;
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].item_id === parseInt(answer.item_id, 11)) {
+            chosenItem = results[i];
+          }
+        }
 		checkProduct(answers.productID, answers.quantity);
 	});
 
